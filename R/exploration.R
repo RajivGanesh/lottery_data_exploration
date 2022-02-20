@@ -41,6 +41,8 @@ year_draws$draws <- paste(nlcb_df$number1, nlcb_df$number2, nlcb_df$number3, nlc
 repeats <- year_draws[duplicated(year_draws$draws),]
 # keep later instance of duplicates
 repeats_l <- year_draws[duplicated(year_draws$draws, fromLast = TRUE),]
-
-draws_repeated <- merge(x=repeats, y=repeats_l, by = "draws")
+# merge the two data frames with duplicates using an inner join
+draws_repeated <- merge(x=repeats, y=repeats_l, by = "draws", all = TRUE)
+# drop all rows with "0 0 0 0 0" as the numbers drawn
+draws_repeated <- draws_repeated[!(draws_repeated$draws == "0 0 0 0 0"),]
 
