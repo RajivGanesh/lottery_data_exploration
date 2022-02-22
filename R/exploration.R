@@ -37,12 +37,24 @@ year_draws <- data.frame(nlcb_df$draw_date)
 # combine all 5 drawn numbers into one column
 year_draws$draws <- paste(nlcb_df$number1, nlcb_df$number2, nlcb_df$number3, nlcb_df$number4, nlcb_df$number5)
 
-# keep first instance of duplicates
+# find all duplicate draws if any exist
 repeats <- year_draws[duplicated(year_draws$draws),]
-# keep later instance of duplicates
-repeats_l <- year_draws[duplicated(year_draws$draws, fromLast = TRUE),]
-# merge the two data frames with duplicates using an inner join
-draws_repeated <- merge(x=repeats, y=repeats_l, by = "draws", all = TRUE)
 # drop all rows with "0 0 0 0 0" as the numbers drawn
-draws_repeated <- draws_repeated[!(draws_repeated$draws == "0 0 0 0 0"),]
+repeats <- repeats[!(repeats$draws == "0 0 0 0 0"),]
+
+
+repeated_draws <- data.frame(draw <- NA, num_repeats <- NA, dates <- NA)
+repeated_draws <- dmy(repeated_draws$dates)
+draw <- repeats[496,2]
+all_duplicates <- year_draws[year_draws$draws == draw,]
+num_repeats <- nrow(all_duplicates)
+
+for (i in 1:num_repeats) {
+  dates <- dmy(append(dates, all_duplicates[i,1]))
+  i <- i+1
+}
+
+
+
+
 
