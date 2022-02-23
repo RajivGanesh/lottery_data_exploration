@@ -43,16 +43,21 @@ repeats <- year_draws[duplicated(year_draws$draws),]
 repeats <- repeats[!(repeats$draws == "0 0 0 0 0"),]
 
 
-repeated_draws <- data.frame(draw <- NA, num_repeats <- NA, dates <- NA)
-repeated_draws <- dmy(repeated_draws$dates)
+repeated_draws <- data.frame(draw <- as.character(NA), num_repeats <- as.numeric(NA), dates <- dmy(NA))
+names(repeated_draws) <- c("draw", "num_repeats", "dates")
+# get repeated draw
 draw <- repeats[496,2]
+# get the records of all the repeated draw
 all_duplicates <- year_draws[year_draws$draws == draw,]
+# count the number of repeated times the draw has been repeated
 num_repeats <- nrow(all_duplicates)
+dates <- dmy()
 
 for (i in 1:num_repeats) {
-  dates <- dmy(append(dates, all_duplicates[i,1]))
+  dates <- append(dates, all_duplicates[i,1])
   i <- i+1
 }
+
 
 
 
