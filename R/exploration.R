@@ -12,7 +12,7 @@ nlcb_df <- data.frame(nlcb_cashpot)
 # check structure of data frame
 str(nlcb_df)
 
-  ## cleaning data frame ##
+  # # cleaning data frame # #
 
 # convert date column from char to date format
 nlcb_df$draw_date <- dmy(nlcb_df$draw_date)
@@ -37,26 +37,48 @@ year_draws <- data.frame(nlcb_df$draw_date)
 # combine all 5 drawn numbers into one column
 year_draws$draws <- paste(nlcb_df$number1, nlcb_df$number2, nlcb_df$number3, nlcb_df$number4, nlcb_df$number5)
 
-# find all duplicate draws if any exist
-repeats <- year_draws[duplicated(year_draws$draws),]
-# drop all rows with "0 0 0 0 0" as the numbers drawn
-repeats <- repeats[!(repeats$draws == "0 0 0 0 0"),]
+# data frame that contains no duplicated draw data
+sans_duplicates <- data.frame(unique(year_draws$draws,))
+names(sans_duplicates) <- c("draws")
+# remove empty draws
+sans_duplicates <- sans_duplicates[!(sans_duplicates$draws == "0 0 0 0 0"),]
+sans_duplicates <- data.frame(sans_duplicates)
 
+# define a data frame to hold the draw frequency data
+repeat_frequency <- data.frame(draw <- as.character(), num_repeats <- as.numeric())
+# get the total number of repeated records
+limit <- nrow(sans_duplicates)
 
-repeated_draws <- data.frame(draw <- as.character(NA), num_repeats <- as.numeric(NA), dates <- dmy(NA))
-names(repeated_draws) <- c("draw", "num_repeats", "dates")
-# get repeated draw
-draw <- repeats[496,2]
-# get the records of all the repeated draw
-all_duplicates <- year_draws[year_draws$draws == draw,]
-# count the number of repeated times the draw has been repeated
-num_repeats <- nrow(all_duplicates)
-dates <- dmy()
+# for loop to populate the repeat_frequency data frame
+for(loopIteration in 1:limit) {
+  draw <- sans_duplicates[loopIteration,1]
+  all_duplicates <- year_draws[year_draws$draws == draw,]
+  num_repeats <- nrow(all_duplicates)
+  # structure row for data frame
+  temp <- data.frame(draw, num_repeats)
+  # add row to data frame
+  repeat_frequency <- rbind(repeat_frequency, temp)
+}
+
+# get only recurring draws
+repeat_frequency <- repeat_frequency[!(repeat_frequency$num_repeats == "1"),]
+
+# get the maximum number of repeats among all draws
+max_repeats <- max(repeat_frequency$num_repeats)
+
+test <- repeat_frequency[repeat_frequency$num_repeats == max_repeats,]
+
 
 for (i in 1:num_repeats) {
   dates <- append(dates, all_duplicates[i,1])
   i <- i+1
 }
+
+repeated_draws <- data.frame(draw <- as.character(NA), num_repeats <- as.numeric(NA), dates <- dmy(NA))
+names(repeated_draws) <- c("draw", "num_repeats", "dates")
+dates <- dmy()
+
+
 
 
 
