@@ -66,8 +66,26 @@ repeat_frequency <- repeat_frequency[!(repeat_frequency$num_repeats == "1"),]
 # get the maximum number of repeats among all draws
 max_repeats <- max(repeat_frequency$num_repeats)
 
-test <- repeat_frequency[repeat_frequency$num_repeats == max_repeats,]
+# organize repeat frequency records by frequency
+two_repeats <- repeat_frequency[repeat_frequency$num_repeats == 2,]
+three_repeats <- repeat_frequency[repeat_frequency$num_repeats == 3,]
+four_repeats <- repeat_frequency[repeat_frequency$num_repeats == 4,]
+five_repeats <- repeat_frequency[repeat_frequency$num_repeats == 5,]
 
+dates <- dmy()
+
+dates <- year_draws[year_draws$draws == two_repeats[1,1],]
+
+dates <- dates$nlcb_df.draw_date
+
+two_repeats <- append(two_repeats, dates)
+
+
+limit <- nrow(two_repeats)
+
+for (loopIteration in 1:limit) {
+  dates <- append(dates, year_draws[loopIteration,2] == two_repeats[loopIteration,1])
+}
 
 for (i in 1:num_repeats) {
   dates <- append(dates, all_duplicates[i,1])
