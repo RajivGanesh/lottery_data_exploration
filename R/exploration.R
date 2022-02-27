@@ -73,8 +73,8 @@ four_repeats <- repeat_frequency[repeat_frequency$num_repeats == 4,]
 five_repeats <- repeat_frequency[repeat_frequency$num_repeats == 5,]
 
 # create a data frame to store the dates of draws that recurred twice
-draws_repeated_twice <- data.frame(draw <- as.character(), first_date <- dmy(), second_date <- dmy())
-names(draws_repeated_twice) <- c("draw", "first_date", "second_date")
+two_repeated_draws <- data.frame(draw <- as.character(), first_date <- dmy(), second_date <- dmy())
+names(two_repeated_draws) <- c("draw", "first_date", "second_date")
 
 # get the number of rows in two_repeats
 limit <- nrow(two_repeats)
@@ -97,14 +97,64 @@ for (loopIteration in 1:limit) {
   # set column names for temp to add as row in final data frame
   names(temp) <- c("draw", "first_date", "second_date")
   # add temp as row in data frame
-  draws_repeated_twice <- rbind(draws_repeated_twice, temp)
+  two_repeated_draws <- rbind(two_repeated_draws, temp)
 }
 
+# create a data frame to store the dates of draws that recurred three times
+three_repeated_draws <- data.frame(draw <- as.character(), first_date <- dmy(), second_date <- dmy(), third_date <- dmy())
+names(three_repeated_draws) <- c("draw", "first_date", "second_date", "third_date")
 
+# get the number of rows in three_repeats
+limit <- nrow(three_repeats)
 
+for (loopIteration in 1:limit) {
+  # create variable to store dates
+  dates <- dmy()
+  # get dates for specific draw
+  dates <- year_draws[year_draws$draws == three_repeats[loopIteration,1],]
+  # isolate dates for draw
+  dates <- dates$nlcb_df.draw_date
+  # convert date to list type
+  dates <- as.list(dates)
+  # temporary data frame to structure a row for final data frame
+  temp <- data.frame(draw <- as.character(three_repeats[loopIteration,1]))
+  # add dates to temporary data frame
+  temp <- append(temp, dates)
+  # temp converted from list to data frame
+  temp <- data.frame(temp)
+  # set column names for temp to add as row in final data frame
+  names(temp) <- c("draw", "first_date", "second_date", "third_date")
+  # add temp as row in data frame
+  three_repeated_draws <- rbind(three_repeated_draws, temp)
+}
 
+# create a data frame to store the dates of draws that recurred three times
+four_repeated_draws <- data.frame(draw <- as.character(), first_date <- dmy(), second_date <- dmy(), third_date <- dmy(), fourth_date <- dmy())
+names(four_repeated_draws) <- c("draw", "first_date", "second_date", "third_date", "fourth_date")
 
+# get the number of rows in four_repeats
+limit <- nrow(four_repeats)
 
+for (loopIteration in 1:limit) {
+  # create variable to store dates
+  dates <- dmy()
+  # get dates for specific draw
+  dates <- year_draws[year_draws$draws == four_repeats[loopIteration,1],]
+  # isolate dates for draw
+  dates <- dates$nlcb_df.draw_date
+  # convert date to list type
+  dates <- as.list(dates)
+  # temporary data frame to structure a row for final data frame
+  temp <- data.frame(draw <- as.character(four_repeats[loopIteration,1]))
+  # add dates to temporary data frame
+  temp <- append(temp, dates)
+  # temp converted from list to data frame
+  temp <- data.frame(temp)
+  # set column names for temp to add as row in final data frame
+  names(temp) <- c("draw", "first_date", "second_date", "third_date", "fourth_date")
+  # add temp as row in data frame
+  four_repeated_draws <- rbind(four_repeated_draws, temp)
+}
 
 
 
