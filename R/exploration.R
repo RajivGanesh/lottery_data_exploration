@@ -72,29 +72,34 @@ three_repeats <- repeat_frequency[repeat_frequency$num_repeats == 3,]
 four_repeats <- repeat_frequency[repeat_frequency$num_repeats == 4,]
 five_repeats <- repeat_frequency[repeat_frequency$num_repeats == 5,]
 
-dates <- dmy()
+# create a data frame to store the dates of draws that recurred twice
+draws_repeated_twice <- data.frame(draw <- as.character(), first_date <- dmy(), second_date <- dmy())
+names(draws_repeated_twice) <- c("draw", "first_date", "second_date")
 
-dates <- year_draws[year_draws$draws == two_repeats[1,1],]
-
-dates <- dates$nlcb_df.draw_date
-
-two_repeats <- append(two_repeats, dates)
-
-
+# get the number of rows in two_repeats
 limit <- nrow(two_repeats)
 
 for (loopIteration in 1:limit) {
-  dates <- append(dates, year_draws[loopIteration,2] == two_repeats[loopIteration,1])
+  # create variable to store dates
+  dates <- dmy()
+  # get dates for specific draw
+  dates <- year_draws[year_draws$draws == two_repeats[loopIteration,1],]
+  # isolate dates for draw
+  dates <- dates$nlcb_df.draw_date
+  # convert date to list type
+  dates <- as.list(dates)
+  # temporary data frame to structure a row for final data frame
+  temp <- data.frame(draw <- as.character(two_repeats[loopIteration,1]))
+  # add dates to temporary data frame
+  temp <- append(temp, dates)
+  # temp converted from list to data frame
+  temp <- data.frame(temp)
+  # set column names for temp to add as row in final data frame
+  names(temp) <- c("draw", "first_date", "second_date")
+  # add temp as row in data frame
+  draws_repeated_twice <- rbind(draws_repeated_twice, temp)
 }
 
-for (i in 1:num_repeats) {
-  dates <- append(dates, all_duplicates[i,1])
-  i <- i+1
-}
-
-repeated_draws <- data.frame(draw <- as.character(NA), num_repeats <- as.numeric(NA), dates <- dmy(NA))
-names(repeated_draws) <- c("draw", "num_repeats", "dates")
-dates <- dmy()
 
 
 
