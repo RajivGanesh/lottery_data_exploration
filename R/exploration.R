@@ -209,10 +209,12 @@ for (loopIteration in 1:limit) {
 limit <- nrow(two_repeats)
 
 for (loopIteration in 1:limit) {
-  which(year_draws$draws == two_repeats[loopIteration,1])
+  temp <- which(year_draws$draws == two_repeats[loopIteration,1])
 }
 
-test <- which(year_draws$draws == two_repeats[1,1])
+ftest <- data.frame(draw <- as.character(), total_winners <- as.numeric())
+names(ftest) <- c("draw", "total_winners")
+test <- which(year_draws$draws == two_repeats[2,1])
 
 l <- length(test)
 
@@ -223,7 +225,26 @@ for (loopIteration in 1:l) {
   v <- append(v, nlcb_df[t,10])
   total <- sum(v)
 }
+hold <- data.frame(draw <- as.character(two_repeats[2,1]), total_winners <- as.numeric(total))
+names(hold) <- c("draw", "total_winners")
+ftest <- rbind(ftest, hold)
 
+
+recurrent_draw_winners <- function (origin_df, formatted_df, recurring_df) {
+  output_vector <- data.frame(draw <- as.character(), total_winners <- as.numeric())
+  names(output_vector) <- c("draw", "total_winners")
+  limit <- nrow(recurring_df)
+  for (loopIteration in 1:limit) {
+    indexes <- which(formatted_df$draws == recurring_df[loopIteration,1])
+    index_length <- length(indexes)
+    winners_vector <- as.numeric()
+    for (innerIteration in 1:index_length) {
+      index_value <- indexes[innerIteration]
+      winners_vector <- append(winners_vector, origin_df[index_value,10])
+      total <- sum(winners_vector)
+    }
+  }
+}
 
 
 
