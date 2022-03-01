@@ -3,6 +3,8 @@ library(tidyverse)
 library(lubridate)
 library(dplyr)
 
+source("R/recurrent_draw_winners.R")
+
 # data import
 nlcb_cashpot <- read_csv("~/data/lottery/nlcb_cashpot.csv")
 
@@ -206,45 +208,12 @@ for (loopIteration in 1:limit) {
   five_repeated_draws <- rbind(five_repeated_draws, temp)
 }
 
-limit <- nrow(two_repeats)
+# the total number of winners for each repeated draw
+two_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, two_repeats)
+three_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, three_repeats)
+four_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, four_repeats)
+five_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, five_repeats)
 
-for (loopIteration in 1:limit) {
-  temp <- which(year_draws$draws == two_repeats[loopIteration,1])
-}
-
-ftest <- data.frame(draw <- as.character(), total_winners <- as.numeric())
-names(ftest) <- c("draw", "total_winners")
-test <- which(year_draws$draws == two_repeats[2,1])
-
-l <- length(test)
-
-v <- as.numeric()
-
-for (loopIteration in 1:l) {
-  t <- test[loopIteration]
-  v <- append(v, nlcb_df[t,10])
-  total <- sum(v)
-}
-hold <- data.frame(draw <- as.character(two_repeats[2,1]), total_winners <- as.numeric(total))
-names(hold) <- c("draw", "total_winners")
-ftest <- rbind(ftest, hold)
-
-
-recurrent_draw_winners <- function (origin_df, formatted_df, recurring_df) {
-  output_vector <- data.frame(draw <- as.character(), total_winners <- as.numeric())
-  names(output_vector) <- c("draw", "total_winners")
-  limit <- nrow(recurring_df)
-  for (loopIteration in 1:limit) {
-    indexes <- which(formatted_df$draws == recurring_df[loopIteration,1])
-    index_length <- length(indexes)
-    winners_vector <- as.numeric()
-    for (innerIteration in 1:index_length) {
-      index_value <- indexes[innerIteration]
-      winners_vector <- append(winners_vector, origin_df[index_value,10])
-      total <- sum(winners_vector)
-    }
-  }
-}
 
 
 
