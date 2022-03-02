@@ -2,9 +2,9 @@ library(readr)
 library(tidyverse)
 library(lubridate)
 library(dplyr)
-library(gtools)
 
 source("R/recurrent_draw_winners.R")
+source("R/recurrent_draw_dates.R")
 
 # data import
 nlcb_cashpot <- read_csv("~/data/lottery/nlcb_cashpot.csv")
@@ -209,14 +209,19 @@ for (loopIteration in 1:limit) {
   five_repeated_draws <- rbind(five_repeated_draws, temp)
 }
 
+test <- data.frame(two_repeats$draw)
+ftest <- data.frame(dateo <- dmy(), datet <- dmy(), dateth <- dmy())
+ftest <- recurrent_draw_dates(year_draws, two_repeats)
+
 h <- data.frame()
 temp <- data.frame()
 
 dates <- dmy()
 
-dates <- year_draws[year_draws$draws == two_repeats[3,1],]
+dates <- year_draws[year_draws$draws == three_repeats[2,1],]
 
 dates <- dates$nlcb_df.draw_date
+dates <- dates[,c(1)]
 
 dates <- as.list(dates)
 
@@ -225,6 +230,9 @@ temp <- append(temp, dates)
 temp <- data.frame(temp)
 
 h <- rbind(h, setNames(temp, names(h)))
+
+test <- h
+
 
 # the total number of winners for each repeated draw
 two_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, two_repeats)

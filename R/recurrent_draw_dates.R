@@ -2,6 +2,7 @@ recurrent_draw_dates <- function (formatted_df, recurring_df) {
   output_vector <- data.frame()
   limit <- nrow(recurring_df)
   for (loopIteration in 1:limit) {
+    temp <- data.frame()
     dates <- dmy()
     dates <- formatted_df[formatted_df$draws == recurring_df[loopIteration,1],]
     dates <- dates[,c(1)]
