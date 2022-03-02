@@ -70,7 +70,7 @@ repeat_frequency <- repeat_frequency[!(repeat_frequency$num_repeats == "1"),]
 max_repeats <- max(repeat_frequency$num_repeats)
 
 # organize repeat frequency records by frequency
-two_repeats <- repeat_frequency[repeat_frequency$num_repeats == 2,]
+two_repeats <- data.frame(repeat_frequency[repeat_frequency$num_repeats == 2,]$draw)
 three_repeats <- repeat_frequency[repeat_frequency$num_repeats == 3,]
 four_repeats <- repeat_frequency[repeat_frequency$num_repeats == 4,]
 five_repeats <- repeat_frequency[repeat_frequency$num_repeats == 5,]
@@ -209,9 +209,9 @@ for (loopIteration in 1:limit) {
   five_repeated_draws <- rbind(five_repeated_draws, temp)
 }
 
-test <- data.frame(two_repeats$draw)
-ftest <- data.frame(dateo <- dmy(), datet <- dmy(), dateth <- dmy())
 ftest <- recurrent_draw_dates(year_draws, two_repeats)
+new <- data.frame(append(two_repeats, ftest))
+names(new) <- c("draw", "first_date", "second_date")
 
 h <- data.frame()
 temp <- data.frame()
