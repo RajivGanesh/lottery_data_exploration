@@ -2,6 +2,7 @@ library(readr)
 library(tidyverse)
 library(lubridate)
 library(dplyr)
+library(gtools)
 
 source("R/recurrent_draw_winners.R")
 
@@ -208,13 +209,26 @@ for (loopIteration in 1:limit) {
   five_repeated_draws <- rbind(five_repeated_draws, temp)
 }
 
+h <- data.frame()
+temp <- data.frame()
+
+dates <- dmy()
+
+dates <- year_draws[year_draws$draws == two_repeats[3,1],]
+
+dates <- dates$nlcb_df.draw_date
+
+dates <- as.list(dates)
+
+temp <- append(temp, dates)
+
+temp <- data.frame(temp)
+
+h <- rbind(h, setNames(temp, names(h)))
+
 # the total number of winners for each repeated draw
 two_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, two_repeats)
 three_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, three_repeats)
 four_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, four_repeats)
 five_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, five_repeats)
-
-
-
-
 
