@@ -71,9 +71,9 @@ max_repeats <- max(repeat_frequency$num_repeats)
 
 # organize repeat frequency records by frequency
 two_repeats <- data.frame(repeat_frequency[repeat_frequency$num_repeats == 2,]$draw)
-three_repeats <- repeat_frequency[repeat_frequency$num_repeats == 3,]
-four_repeats <- repeat_frequency[repeat_frequency$num_repeats == 4,]
-five_repeats <- repeat_frequency[repeat_frequency$num_repeats == 5,]
+three_repeats <- data.frame(repeat_frequency[repeat_frequency$num_repeats == 3,]$draw)
+four_repeats <- data.frame(repeat_frequency[repeat_frequency$num_repeats == 4,]$draw)
+five_repeats <- data.frame(repeat_frequency[repeat_frequency$num_repeats == 5,]$draw)
 
 # create a data frame to store the dates of draws that recurred twice
 two_repeated_draws <- data.frame(
@@ -209,29 +209,10 @@ for (loopIteration in 1:limit) {
   five_repeated_draws <- rbind(five_repeated_draws, temp)
 }
 
-ftest <- recurrent_draw_dates(year_draws, two_repeats)
-new <- data.frame(append(two_repeats, ftest))
-names(new) <- c("draw", "first_date", "second_date")
-
-h <- data.frame()
-temp <- data.frame()
-
-dates <- dmy()
-
-dates <- year_draws[year_draws$draws == three_repeats[2,1],]
-
-dates <- dates$nlcb_df.draw_date
-dates <- dates[,c(1)]
-
-dates <- as.list(dates)
-
-temp <- append(temp, dates)
-
-temp <- data.frame(temp)
-
-h <- rbind(h, setNames(temp, names(h)))
-
-test <- h
+# create a data frame to store the dates of draws that recurred two times
+two_repeat_dates <- recurrent_draw_dates(year_draws, two_repeats)
+two_recurring_draws <- data.frame(append(two_repeats, two_repeat_dates))
+names(two_recurring_draws) <- c("draw", "first_date", "second_date")
 
 
 # the total number of winners for each repeated draw
