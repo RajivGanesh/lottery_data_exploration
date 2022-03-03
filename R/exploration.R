@@ -214,6 +214,20 @@ two_repeat_dates <- recurrent_draw_dates(year_draws, two_repeats)
 two_recurring_draws <- data.frame(append(two_repeats, two_repeat_dates))
 names(two_recurring_draws) <- c("draw", "first_date", "second_date")
 
+# create a data frame to store the dates of draws that recurred three times
+three_repeat_dates <- recurrent_draw_dates(year_draws, three_repeats)
+three_recurring_draws <- data.frame(append(three_repeats, three_repeat_dates))
+names(three_recurring_draws) <- c("draw", "first_date", "second_date", "third_date")
+
+# create a data frame to store the dates of draws that recurred four times
+four_repeat_dates <- recurrent_draw_dates(year_draws, four_repeats)
+four_recurring_draws <- data.frame(append(four_repeats, four_repeat_dates))
+names(four_recurring_draws) <- c("draw", "first_date", "second_date", "third_date", "fourth_date")
+
+# create a data frame to store the dates of the draws that recurred five times
+five_repeat_dates <- recurrent_draw_dates(year_draws, five_repeats)
+five_recurring_draws <- data.frame(append(five_repeats, five_repeat_dates))
+names(five_recurring_draws) <- c("draw", "first_date", "second_date", "third_date", "fourth_date", "fifth_date")
 
 # the total number of winners for each repeated draw
 two_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, two_repeats)
