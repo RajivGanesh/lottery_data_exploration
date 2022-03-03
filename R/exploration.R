@@ -3,7 +3,9 @@ library(tidyverse)
 library(lubridate)
 library(dplyr)
 
+# function to find the total number of winners for repeat draws
 source("R/recurrent_draw_winners.R")
+# function to find all the dates of repeat draws
 source("R/recurrent_draw_dates.R")
 
 # data import
