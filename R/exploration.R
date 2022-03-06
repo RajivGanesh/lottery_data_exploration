@@ -104,3 +104,5 @@ four_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, four_repeats)
 five_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, five_repeats)
 
 max_jackpot <- max(nlcb_df$jackpot)
+
+max_winners <- max(nlcb_df$num_of_wins)
