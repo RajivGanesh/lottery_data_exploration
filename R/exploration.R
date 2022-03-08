@@ -42,6 +42,8 @@ year_draws <- data.frame(nlcb_df$draw_date)
 # combine all 5 drawn numbers into one column
 year_draws$draws <- paste(nlcb_df$number1, nlcb_df$number2, nlcb_df$number3, nlcb_df$number4, nlcb_df$number5)
 
+year_draws <- cbind(year_draws, nlcb_df$jackpot)
+
 # data frame that contains no duplicated draw data
 sans_duplicates <- data.frame(unique(year_draws$draws,))
 names(sans_duplicates) <- c("draws")
@@ -108,3 +110,5 @@ max_jackpot <- max(nlcb_df$jackpot)
 max_winners <- max(nlcb_df$num_of_wins)
 
 min_winners <- min(nlcb_df$num_of_wins)
+
+atest <- year_draws[year_draws$draws == two_recurring_draws[1,1],]$`nlcb_df$jackpot`
