@@ -111,11 +111,12 @@ max_winners <- max(nlcb_df$num_of_wins)
 
 min_winners <- min(nlcb_df$num_of_wins)
 
-ao <- data.frame()
+ao <- data.frame(f <- numeric(), s <- numeric())
 atemp <- data.frame()
 atest <- data.frame(year_draws[year_draws$draws == two_recurring_draws[1,1],]$`nlcb_df$jackpot`)
 atest <- as.list(atest)
 atemp <- append(atemp, atest)
 atemp <- data.frame(atemp)
-ao <- rbind(ao, setNames(atemp, names(ao)))
+ao[1,1] <- atemp[1,1]
+ao[1,2] <- atemp[2,1]
 
