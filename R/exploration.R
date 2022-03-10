@@ -111,11 +111,7 @@ five_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, five_repeats)
 max_jackpot <- max(nlcb_df$jackpot)
 # the highest amount of winners for any singular draw
 max_winners <- max(nlcb_df$num_of_wins)
-<<<<<<< HEAD
 # the lowest amount of winners for any singular draw
-=======
-# the lowest amound of winners for any singular draw
->>>>>>> dce19adf0f825299c3e3e68b591194c218bac5e0
 min_winners <- min(nlcb_df$num_of_wins)
 
 # functions that return the jackpot for each repeated draw, and the total across those draws
