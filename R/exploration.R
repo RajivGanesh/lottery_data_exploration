@@ -117,7 +117,7 @@ min_winners <- min(nlcb_df$num_of_wins)
 real <- data.frame()
 limit <- 19
 for (i in 1:limit) {
-  atest <- data.frame(year_draws[year_draws$draws == two_recurring_draws[i,1],]$`nlcb_df$jackpot`)
+  atest <- data.frame(year_draws[year_draws$draws == three_recurring_draws[i,1],]$`nlcb_df$jackpot`)
   atest <- data.frame(t(atest))
   atest <- cbind(atest, sum(atest))
   rownames(atest)[1] <- i
@@ -126,6 +126,7 @@ for (i in 1:limit) {
 row.names(real) <- 1 : nrow(real)
 
 two_recurring_jackpots <- recurring_jackpots(year_draws, two_recurring_draws)
+three_recurring_jackpots <- recurring_jackpots(year_draws, three_recurring_draws)
 
 atest <- data.frame(year_draws[year_draws$draws == two_recurring_draws[4,1],]$`nlcb_df$jackpot`)
 #rotation

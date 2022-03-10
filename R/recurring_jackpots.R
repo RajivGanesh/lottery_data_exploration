@@ -1,6 +1,8 @@
 recurring_jackpots <- function (formatted_df, recurring_df){
-  # initialize output vector to store jackpots and total
-  output_vector <- data.frame()
+  # initialize output vector for return
+  output_vector <- data.frame(recurring_df)
+  # initialize vector to store jackpots and total
+  jackpot_data <- data.frame()
   # get the number of rows in the data frame being processed
   limit <- nrow(recurring_df)
   for (loopIteration in 1:limit) {
@@ -13,10 +15,12 @@ recurring_jackpots <- function (formatted_df, recurring_df){
     # set row name to appropriate numeric value
     rownames(temp)[1] <- loopIteration
     # add row to output data frame
-    output_vector <- rbind(output_vector, temp)
+    jackpot_data <- rbind(jackpot_data, temp)
   }
   # enforce that row names are appropriately named
-  row.names(output_vector) <- 1 : nrow(output_vector)
+  row.names(jackpot_data) <- 1 : nrow(jackpot_data)
+  # combine jackpot and original data frame
+  output_vector <- cbind(output_vector, jackpot_data)
   # return data frame
   return(output_vector)
 }
