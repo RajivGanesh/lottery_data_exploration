@@ -107,37 +107,15 @@ three_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, three_repeat
 four_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, four_repeats)
 five_repeat_winners <- recurrent_draw_winners(nlcb_df, year_draws, five_repeats)
 
+# the highest jackpot ever recorded
 max_jackpot <- max(nlcb_df$jackpot)
-
+# the highest amount of winners for any singular draw
 max_winners <- max(nlcb_df$num_of_wins)
-
+# the lowest amount of winners for any singular draw
 min_winners <- min(nlcb_df$num_of_wins)
 
-# test
-real <- data.frame()
-limit <- 19
-for (i in 1:limit) {
-  atest <- data.frame(year_draws[year_draws$draws == three_recurring_draws[i,1],]$`nlcb_df$jackpot`)
-  atest <- data.frame(t(atest))
-  atest <- cbind(atest, sum(atest))
-  rownames(atest)[1] <- i
-  real <- rbind(real, atest)
-}
-row.names(real) <- 1 : nrow(real)
-
+# functions that return the jackpot for each repeated draw, and the total across those draws
 two_recurring_jackpots <- recurring_jackpots(year_draws, two_recurring_draws)
 three_recurring_jackpots <- recurring_jackpots(year_draws, three_recurring_draws)
-
-atest <- data.frame(year_draws[year_draws$draws == two_recurring_draws[4,1],]$`nlcb_df$jackpot`)
-#rotation
-atest <- data.frame(t(atest))
-atest <- cbind(atest, sum(atest))
-nu <- as.numeric(4)
-rownames(atest)[1] <- nu
-#real <- data.frame()
-real <- rbind(real, atest)
-row.names(real) <- 1 : nrow(real)
-# reset row name
-
-
-
+four_recurring_jackpots <- recurring_jackpots(year_draws, four_recurring_draws)
+five_recurring_jackpots <- recurring_jackpots(year_draws, five_recurring_draws)
