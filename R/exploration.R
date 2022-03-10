@@ -7,6 +7,8 @@ library(dplyr)
 source("R/recurrent_draw_winners.R")
 # function to find all the dates of repeat draws
 source("R/recurrent_draw_dates.R")
+# function to find all the jackpots that correspond to recurring draws
+source("R/recurring_jackpots.R")
 
 # data import
 nlcb_cashpot <- read_csv("~/data/lottery/nlcb_cashpot.csv")
@@ -111,11 +113,30 @@ max_winners <- max(nlcb_df$num_of_wins)
 
 min_winners <- min(nlcb_df$num_of_wins)
 
-ao <- data.frame(f <- numeric(), s <- numeric(), t <- numeric())
-atemp <- data.frame()
-atest <- data.frame(year_draws[year_draws$draws == two_recurring_draws[1,1],]$`nlcb_df$jackpot`)
+# test
+real <- data.frame()
+limit <- 19
+for (i in 1:limit) {
+  atest <- data.frame(year_draws[year_draws$draws == two_recurring_draws[i,1],]$`nlcb_df$jackpot`)
+  atest <- data.frame(t(atest))
+  atest <- cbind(atest, sum(atest))
+  rownames(atest)[1] <- i
+  real <- rbind(real, atest)
+}
+row.names(real) <- 1 : nrow(real)
+
+two_recurring_jackpots <- recurring_jackpots(year_draws, two_recurring_draws)
+
+atest <- data.frame(year_draws[year_draws$draws == two_recurring_draws[4,1],]$`nlcb_df$jackpot`)
 #rotation
 atest <- data.frame(t(atest))
-real <- data.frame()
-real <- rbind(ao, real)
+atest <- cbind(atest, sum(atest))
+nu <- as.numeric(4)
+rownames(atest)[1] <- nu
+#real <- data.frame()
+real <- rbind(real, atest)
+row.names(real) <- 1 : nrow(real)
+# reset row name
+
+
 
