@@ -53,6 +53,8 @@ names(sans_duplicates) <- c("draws")
 sans_duplicates <- sans_duplicates[!(sans_duplicates$draws == "0 0 0 0 0"),]
 sans_duplicates <- data.frame(sans_duplicates)
 
+    # # end of cleaning exercize # #
+
 # define a data frame to hold the draw frequency data
 repeat_frequency <- data.frame(draw <- as.character(), num_repeats <- as.numeric())
 # get the total number of repeated records
@@ -127,13 +129,17 @@ tlimit <- year(nlcb_df$draw_date[nrow(nlcb_df)]) - year(nlcb_df$draw_date[1])
 earliest_year <-min(year(nlcb_df$draw_date))
 f_year <- earliest_year
 for (i in 1:tlimit) {
-  stage <- data.frame(y <- numeric(), j <- numeric(), w <- numeric())
+  stage <- data.frame(y <- numeric(), mj <- numeric(), mjt <- numeric(), j <- numeric(), w <- numeric())
   year_record <- subset(nlcb_df, format(as.Date(draw_date),"%Y") == f_year)
+  min_jackpot <- min(year_record$jackpot[year_record$jackpot > 0])
+  max_jackpot <- max(year_record$jackpot)
   total_jackpot <- sum(year_record$jackpot)
   total_winners <- sum(year_record$num_of_wins)
   stage[1,1] <- f_year
-  stage[1,2] <- total_jackpot
-  stage[1,3] <- total_winners
+  stage[1,2] <- min_jackpot
+  stage[1,3] <- max_jackpot
+  stage[1,4] <- total_jackpot
+  stage[1,5] <- total_winners
   output_set <- rbind(output_set, stage)
   f_year <- f_year + 1
 }
