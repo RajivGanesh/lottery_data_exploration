@@ -9,6 +9,8 @@ source("R/recurrent_draw_winners.R")
 source("R/recurrent_draw_dates.R")
 # function to find all the jackpots that correspond to recurring draws
 source("R/recurring_jackpots.R")
+# function to find the sum, minimum, and maximum jackpots for each year along with the total number of winners per year
+source("R/year_data.R")
 
 # data import
 nlcb_cashpot <- read_csv("~/data/lottery/nlcb_cashpot.csv")
@@ -122,24 +124,5 @@ three_recurring_jackpots <- recurring_jackpots(year_draws, three_recurring_draws
 four_recurring_jackpots <- recurring_jackpots(year_draws, four_recurring_draws)
 five_recurring_jackpots <- recurring_jackpots(year_draws, five_recurring_draws)
 
-# test
-output_set <- data.frame()
-tlimit <- year(nlcb_df$draw_date[nrow(nlcb_df)]) - year(nlcb_df$draw_date[1])
-# find earliest year in data frame
-earliest_year <-min(year(nlcb_df$draw_date))
-f_year <- earliest_year
-for (i in 1:tlimit) {
-  stage <- data.frame(y <- numeric(), mj <- numeric(), mjt <- numeric(), j <- numeric(), w <- numeric())
-  year_record <- subset(nlcb_df, format(as.Date(draw_date),"%Y") == f_year)
-  min_jackpot <- min(year_record$jackpot[year_record$jackpot > 0])
-  max_jackpot <- max(year_record$jackpot)
-  total_jackpot <- sum(year_record$jackpot)
-  total_winners <- sum(year_record$num_of_wins)
-  stage[1,1] <- f_year
-  stage[1,2] <- min_jackpot
-  stage[1,3] <- max_jackpot
-  stage[1,4] <- total_jackpot
-  stage[1,5] <- total_winners
-  output_set <- rbind(output_set, stage)
-  f_year <- f_year + 1
-}
+# function called to look at analysis per year
+data_by_year <- year_data(nlcb_df)
