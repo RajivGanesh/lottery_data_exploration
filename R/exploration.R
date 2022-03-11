@@ -119,3 +119,12 @@ two_recurring_jackpots <- recurring_jackpots(year_draws, two_recurring_draws)
 three_recurring_jackpots <- recurring_jackpots(year_draws, three_recurring_draws)
 four_recurring_jackpots <- recurring_jackpots(year_draws, four_recurring_draws)
 five_recurring_jackpots <- recurring_jackpots(year_draws, five_recurring_draws)
+
+# test
+tlimit <- year(nlcb_df$draw_date[nrow(nlcb_df)]) - year(nlcb_df$draw_date[1])
+# find earliest year in data frame
+earliest_year <-min(year(nlcb_df$draw_date))
+
+for (i in 1:tlimit) {
+  year_record <- subset(nlcb_df, format(as.Date(draw_date),"%Y") == earliest_year)
+}
