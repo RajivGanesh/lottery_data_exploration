@@ -121,10 +121,19 @@ four_recurring_jackpots <- recurring_jackpots(year_draws, four_recurring_draws)
 five_recurring_jackpots <- recurring_jackpots(year_draws, five_recurring_draws)
 
 # test
+output_set <- data.frame()
 tlimit <- year(nlcb_df$draw_date[nrow(nlcb_df)]) - year(nlcb_df$draw_date[1])
 # find earliest year in data frame
 earliest_year <-min(year(nlcb_df$draw_date))
-
+f_year <- earliest_year
 for (i in 1:tlimit) {
-  year_record <- subset(nlcb_df, format(as.Date(draw_date),"%Y") == earliest_year)
+  stage <- data.frame(y <- numeric(), j <- numeric(), w <- numeric())
+  year_record <- subset(nlcb_df, format(as.Date(draw_date),"%Y") == f_year)
+  total_jackpot <- sum(year_record$jackpot)
+  total_winners <- sum(year_record$num_of_wins)
+  stage[1,1] <- f_year
+  stage[1,2] <- total_jackpot
+  stage[1,3] <- total_winners
+  output_set <- rbind(output_set, stage)
+  f_year <- f_year + 1
 }
