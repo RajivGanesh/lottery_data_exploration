@@ -1,4 +1,4 @@
-recurring_jackpots <- function (formatted_df, recurring_df){
+recurring_jackpots <- function (formatted_df, recurring_df) {
   # initialize output vector for return
   output_vector <- data.frame(recurring_df)
   # initialize vector to store jackpots and total
