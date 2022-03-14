@@ -126,3 +126,9 @@ five_recurring_jackpots <- recurring_jackpots(year_draws, five_recurring_draws)
 
 # function called to look at analysis per year
 data_by_year <- year_data(nlcb_df)
+
+# testing
+
+# function for one panel
+test <- data.frame(unique(nlcb_df$number1,))
+test <- test[order(test[,1]),]
