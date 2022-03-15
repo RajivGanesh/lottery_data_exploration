@@ -130,5 +130,13 @@ data_by_year <- year_data(nlcb_df)
 # testing
 
 # function for one panel
-test <- data.frame(unique(nlcb_df$number1,))
-test <- test[order(test[,1]),]
+tlim <- 5
+i <- 3
+out <- data.frame()
+for (i in tlim) {
+  stage <- data.frame(unique(nlcb_df[5],))
+  stage <- stage[order(stage[,1]),]
+  stage <- as.list(stage)
+  out <- rbind(out, stage)
+  i <- i+1
+}
