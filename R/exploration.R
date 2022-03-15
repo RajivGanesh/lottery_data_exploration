@@ -135,8 +135,13 @@ i <- 3
 out <- data.frame()
 for (i in tlim) {
   stage <- data.frame(unique(nlcb_df[5],))
-  stage <- stage[order(stage[,1]),]
-  stage <- as.list(stage)
-  out <- rbind(out, stage)
+  ilim <- nrow(stage)
+  j <- 1
+  for (j in ilim) {
+    stagee <- nrow(nlcb_df[i] == stage[j,1])
+    out <- rbind(out, stagee)
+  }
   i <- i+1
 }
+
+test <- table(nlcb_df$number2)
