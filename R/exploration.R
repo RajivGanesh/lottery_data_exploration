@@ -128,20 +128,12 @@ five_recurring_jackpots <- recurring_jackpots(year_draws, five_recurring_draws)
 data_by_year <- year_data(nlcb_df)
 
 # testing
+panel_A <- table(nlcb_df$number1)
+max_A <- max(panel_A)
+most_frequent_A <- names(panel_A)[which(panel_A == max_A, arr.ind = TRUE)]
 
-# function for one panel
-tlim <- 5
-i <- 3
-out <- data.frame()
-for (i in tlim) {
-  stage <- data.frame(unique(nlcb_df[5],))
-  ilim <- nrow(stage)
-  j <- 1
-  for (j in ilim) {
-    stagee <- nrow(nlcb_df[i] == stage[j,1])
-    out <- rbind(out, stagee)
-  }
-  i <- i+1
-}
+panel_B <- table(nlcb_df$number2)
+panel_C <- table(nlcb_df$number3)
+panel_D <- table(nlcb_df$number4)
+panel_E <- table(nlcb_df$number5)
 
-test <- table(nlcb_df$number2)
