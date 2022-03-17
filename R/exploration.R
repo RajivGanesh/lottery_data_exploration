@@ -12,6 +12,8 @@ source("R/recurring_jackpots.R")
 # function to find the sum, minimum, and maximum jackpots for each year along with the total number of winners per year
 source("R/year_data.R")
 
+source("R/panel_frequency.R")
+
 # data import
 nlcb_cashpot <- read_csv("~/data/lottery/nlcb_cashpot.csv")
 
@@ -126,16 +128,4 @@ five_recurring_jackpots <- recurring_jackpots(year_draws, five_recurring_draws)
 
 # function called to look at analysis per year
 data_by_year <- year_data(nlcb_df)
-
-# testing
-panel_A <- table(nlcb_df$number1)
-max_A <- max(panel_A)
-most_frequent_A <- names(panel_A)[which(panel_A == max_A, arr.ind = TRUE)]
-test_df <- data.frame(max_A)
-names(test_df) <- c(most_frequent_A)
-
-panel_B <- table(nlcb_df$number2)
-panel_C <- table(nlcb_df$number3)
-panel_D <- table(nlcb_df$number4)
-panel_E <- table(nlcb_df$number5)
 
