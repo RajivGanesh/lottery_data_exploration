@@ -11,7 +11,7 @@ source("R/recurrent_draw_dates.R")
 source("R/recurring_jackpots.R")
 # function to find the sum, minimum, and maximum jackpots for each year along with the total number of winners per year
 source("R/year_data.R")
-
+# function to find the most frequently repeated draw number per panel
 source("R/panel_frequency.R")
 
 # data import
@@ -129,4 +129,10 @@ five_recurring_jackpots <- recurring_jackpots(year_draws, five_recurring_draws)
 # function called to look at analysis per year
 data_by_year <- year_data(nlcb_df)
 
+# function called that returns a 1x1 data frame where the column name is 
+# the most repeated number and the row value is the number of times it was repeated
 panel_A <- panel_frequency(nlcb_df$number1)
+panel_B <- panel_frequency(nlcb_df$number2)
+panel_C <- panel_frequency(nlcb_df$number3)
+panel_D <- panel_frequency(nlcb_df$number4)
+panel_E <- panel_frequency(nlcb_df$number5)
