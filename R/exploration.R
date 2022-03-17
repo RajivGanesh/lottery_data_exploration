@@ -131,6 +131,8 @@ data_by_year <- year_data(nlcb_df)
 panel_A <- table(nlcb_df$number1)
 max_A <- max(panel_A)
 most_frequent_A <- names(panel_A)[which(panel_A == max_A, arr.ind = TRUE)]
+test_df <- data.frame(max_A)
+names(test_df) <- c(most_frequent_A)
 
 panel_B <- table(nlcb_df$number2)
 panel_C <- table(nlcb_df$number3)
