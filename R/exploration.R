@@ -129,3 +129,4 @@ five_recurring_jackpots <- recurring_jackpots(year_draws, five_recurring_draws)
 # function called to look at analysis per year
 data_by_year <- year_data(nlcb_df)
 
+panel_A <- panel_frequency(nlcb_df$number1)
