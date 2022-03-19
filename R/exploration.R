@@ -136,3 +136,8 @@ panel_B <- panel_frequency(nlcb_df$number2)
 panel_C <- panel_frequency(nlcb_df$number3)
 panel_D <- panel_frequency(nlcb_df$number4)
 panel_E <- panel_frequency(nlcb_df$number5)
+
+# testing
+
+test_year <- subset(nlcb_df, format(as.Date(draw_date), "%Y") == 1999)
+test_panel <- panel_frequency(test_year$number1)
